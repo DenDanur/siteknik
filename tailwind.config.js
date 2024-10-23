@@ -14,6 +14,10 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: '#4CAF50', // Warna hijau militer
+                secondary: '#374151', // Warna abu-abu
+            },
         },
     },
 
