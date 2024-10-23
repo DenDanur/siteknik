@@ -2,44 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // Menampilkan halaman kategori produk
+    // Menampilkan halaman daftar kategori
     public function index()
     {
-        $categories = [
-            'weapons' => 'Weapons',
-            'vehicles' => 'Vehicles',
-            'gear' => 'Military Gear',
-        ];
+        // Ambil semua kategori dari database
+        $categories = Category::all();
 
+        // Kirim data kategori ke view
         return view('products.categories', compact('categories'));
     }
 
     // Menampilkan produk berdasarkan kategori
-    public function showCategory($category)
+    public function showCategory($categoryId)
     {
-        $products = [
-            'weapons' => [
-                ['name' => 'AK-47', 'description' => 'A powerful rifle.'],
-                ['name' => 'M16', 'description' => 'Reliable and versatile rifle.'],
-            ],
-            'vehicles' => [
-                ['name' => 'Tank', 'description' => 'Heavy armored vehicle.'],
-                ['name' => 'Humvee', 'description' => 'All-terrain military vehicle.'],
-            ],
-            'gear' => [
-                ['name' => 'Tactical Vest', 'description' => 'Bulletproof gear.'],
-                ['name' => 'Night Vision Goggles', 'description' => 'See in the dark.'],
-            ],
-        ];
+        // Temukan kategori berdasarkan ID
+        $category = Category::findOrFail($categoryId);
 
+        // Dummy data produk (bisa diganti dengan query database nanti)
+        $products = Item::where('category_id', $categoryId)->get();;
+
+        // Kirim data kategori dan produk ke view
         return view('products.list', [
-            'category' => ucfirst($category),
-            'products' => $products[$category] ?? [],
+            'category' => $category->name,
+            'products' => $products,
         ]);
     }
 }
-
