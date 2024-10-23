@@ -35,7 +35,10 @@
         <h4>Admin Panel</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('category.index') }}">Category</a>
+                <a class="nav-link" href="{{ route('categories.index')}}">Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('subcategories.index')}}">Sub Category</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('items.index') }}">Items</a>

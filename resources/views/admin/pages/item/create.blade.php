@@ -1,38 +1,47 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Create Item')
-@section('menu', 'Create Item')
-
 @section('content')
-    <div class="container mt-4">
-        <h1 class="mb-4">Create New Item</h1>
+<div class="container">
+    <h1>Add New Item</h1>
 
-        <!-- Flash message if any -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+    <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-        <form action="{{ route('items.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
 
-            <div class="form-group">
-                <label for="category_id">Category</label>
-                <select class="form-control" id="category_id" name="category_id" required>
-                    <option value="">Select a Category</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="category_id">Sub Category</label>
+            <select name="subcategory_id" class="form-control" required>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-            <button type="submit" class="btn btn-primary">Create Item</button>
-            <a href="{{ route('items.index') }}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" class="form-control" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" name="stock" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" name="price" class="form-control" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
 @endsection

@@ -1,16 +1,16 @@
 @extends('admin.layouts.main')
 
 @section('title')
-    Add Category
+    Add Sub Category
 @endsection
 
 @section('menu')
-    Add Category
+    Add Sub Category
 @endsection
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="mb-4">Create New Category</h1>
+        <h1 class="mb-4">Create New Sub Category</h1>
 
         <!-- Flash message if any -->
         @if (session('success'))
@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('categories.store') }}" method="POST">
+        <form action="{{ route('subcategories.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>
@@ -31,8 +31,17 @@
                     </div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Create Category</button>
-            <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
+            <div class="form-group">
+                <label for="category_id">Category</label>
+                <select name="category_id" id="category_id" class="form-control" required>
+                    <option value="">Select Category</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Sub Category</button>
+            <a href="{{ route('subcategories.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 @endsection

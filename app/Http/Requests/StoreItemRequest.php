@@ -22,8 +22,12 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'string|required|max:255',
-            'category_id'=>'required'
+            'name' => 'required|string|max:255',
+            'subcategory_id' => 'required|exists:subcategories,id',
+            'description' => 'required|string',
+            'stock' => 'required|integer',
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|max:2048'
         ];
     }
 }

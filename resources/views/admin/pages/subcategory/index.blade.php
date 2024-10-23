@@ -1,16 +1,16 @@
 @extends('admin.layouts.main')
 
 @section('title')
-Category
+Sub Category
 @endsection
 
 @section('menu')
-Category
+Sub Category
 @endsection
 
 @section('content')
 <div class="container mt-4">
-    <h1 class="mb-4">Category List</h1>
+    <h1 class="mb-4">Sub Category List</h1>
 
     <!-- Flash message if any -->
     @if (session('success'))
@@ -20,7 +20,7 @@ Category
     @endif
 
     <!-- Button to create a new category -->
-    <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Add New Category</a>
+    <a href="{{ route('subcategories.create') }}" class="btn btn-primary mb-3">Add New Sub Category</a>
 
     <!-- Table to list categories -->
     <table class="table table-striped">
@@ -28,20 +28,22 @@ Category
             <tr>
                 {{-- <th>ID</th> --}}
                 <th>Name</th>
+                <th>Category</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($categories as $category)
+            @forelse($subcategories as $subcategory)
                 <tr>
-                    {{-- <td>{{ $category->id }}</td> --}}
-                    <td>{{ $category->name }}</td>
+                    {{-- <td>{{ $subcategory->id }}</td> --}}
+                    <td>{{ $subcategory->name }}</td>
+                    <td>{{ $subcategory->category->name }}</td>
                     <td>
                         <!-- Edit button -->
-                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('subcategories.edit', $subcategory->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
                         <!-- Delete form -->
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm"
