@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
-use App\Models\Category;
+use App\Models\Categories;
 use App\Models\ItemDetail;
+use App\Models\Subcategories;
 use Illuminate\Http\Request;
-
-
-
-
-
 
 class ItemController extends Controller
 {
@@ -21,11 +17,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        // $itemDetails = ItemDetail::with('item')->when($request->item_id, function ($query) use ($request) {
-        //     return $query->where('item_id', $request->item_id);
-        // })->get();
-
-        $items = Item::with('category')->get();
+        $items = Item::with(['category', 'detail'])->get();
         return view('admin.pages.item.index', compact('items'));
     }
 
@@ -34,7 +26,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Subcategories::all();
         return view('admin.pages.item.create', compact('categories'));
     }
 
@@ -43,11 +35,16 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-
+        // Validasi data menggunakan request yang sudah divalidasi
         $validasi = $request->validated();
-        Item::create($validasi);
 
-        return redirect()->route('items.index');
+        // Simpan item baru
+        $item = Item::create($validasi); // Menggunakan $validasi langsung
+
+        // Simpan detail item
+        ItemDetail::create(array_merge($validasi, ['item_id' => $item->id]));
+
+        return redirect()->route('items.index')->with('success', 'Item created successfully.');
     }
 
     /**
@@ -55,7 +52,8 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        // Menampilkan detail item (jika diperlukan)
+        return view('admin.pages.item.show', compact('item'));
     }
 
     /**
@@ -63,7 +61,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::all();
+        $categories = Subcategories::all();
         return view('admin.pages.item.edit', compact('item', 'categories'));
     }
 
@@ -72,9 +70,15 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
+        // Validasi data menggunakan request yang sudah divalidasi
         $validasi = $request->validated();
-        $item->update($validasi);
-        return redirect()->route('items.index');
+
+        // Update item
+        $item->update($validasi); // Menggunakan $validasi langsung
+
+        // Update detail item
+        $item->detail->update($validasi); // Menggunakan $validasi langsung
+        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
     }
 
     /**
@@ -83,6 +87,6 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
-        return redirect()->route('items.index');
+        return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
     }
 }

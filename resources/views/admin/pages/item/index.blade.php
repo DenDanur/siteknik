@@ -1,44 +1,49 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Items List')
-
 @section('content')
-    <div class="container mt-4">
-        <h1 class="mb-4">Items List</h1>
+<div class="container">
+    <h1>Items</h1>
+    <a href="{{ route('items.create') }}" class="btn btn-primary mb-3">Add New Item</a>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-        <a href="{{ route('items.create') }}" class="btn btn-primary mb-3">Create New Item</a>
-
-        <table class="table table-bordered">
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($items as $item)
                 <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Actions</th>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->category->name }}</td>
+                    <td>{{ $item->subcategory->name }}</td>
+                    <td>{{ optional($item->detail)->description ?? 'N/A' }}</td>
+                    <td>{{ optional($item->detail)->stock ?? 'N/A' }}</td>
+                    <td>{{ optional($item->detail)->price ?? 'N/A' }}</td>
+                    <td>
+                        <a href="{{ route('items.edit', $item) }}" class="btn btn-warning">Edit</a>
+
+                        <!-- Form untuk Delete -->
+                        <form action="{{ route('items.destroy', $item) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($items as $item)
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->category->name }}</td>
-                        <td>
-                            <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            {{-- <a href="{{ route('itemdetails.index', ['item_id' => $item->id]) }}" class="btn btn-info btn-sm">View Details</a> --}}
-                            <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+
+    </table>
+</div>
 @endsection

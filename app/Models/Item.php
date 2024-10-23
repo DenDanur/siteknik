@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = ['name','category_id'];
+    protected $fillable = ['name','subcategory_id'];
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategories::class, 'subcategory_id'); 
+    }
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasOneThrough(Categories::class, Subcategories::class, 'id', 'id', 'subcategory_id', 'category_id');
     }
 
     public function detail()

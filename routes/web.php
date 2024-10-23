@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ItemDetailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('category', CategoryController::class);
+
 Route::resource('items', ItemController::class);
-Route::resource('itemdetails',ItemDetailController::class);
+Route::resource('categories', CategoriesController::class);
+Route::resource('subcategories', SubcategoriesController::class);
+
+
