@@ -1,18 +1,11 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
-=======
 use App\Http\Controllers\CategoriesController;
->>>>>>> e026bc8bc6f744b0be1a1ff4ca230e4843652383
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
-<<<<<<< HEAD
 use App\Http\Controllers\ProductController;
-=======
 use App\Http\Controllers\SubcategoriesController;
->>>>>>> e026bc8bc6f744b0be1a1ff4ca230e4843652383
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,15 +41,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::resource('items', ItemController::class);
+    Route::resource('categories', CategoriesController::class);
+    Route::resource('subcategories', SubcategoriesController::class);
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
 });
 
 require __DIR__.'/auth.php';
 
 
-Route::resource('items', ItemController::class);
-Route::resource('categories', CategoriesController::class);
-Route::resource('subcategories', SubcategoriesController::class);
+
 
 

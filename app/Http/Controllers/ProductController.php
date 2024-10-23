@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Categories;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function index()
     {
         // Ambil semua kategori dari database
-        $categories = Category::all();
+        $categories = Categories::all();
 
         // Kirim data kategori ke view
         return view('products.categories', compact('categories'));
@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function showCategory($categoryId)
     {
         // Temukan kategori berdasarkan ID
-        $category = Category::findOrFail($categoryId);
+        $category = Categories::findOrFail($categoryId);
 
         // Dummy data produk (bisa diganti dengan query database nanti)
         $products = Item::where('category_id', $categoryId)->get();;
