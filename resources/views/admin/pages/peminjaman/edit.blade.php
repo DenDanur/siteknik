@@ -37,11 +37,6 @@
             <input type="date" name="tanggal_pinjam" class="form-control" value="{{ $peminjaman->tanggal_pinjam }}" required>
         </div>
 
-        <div class="form-group">
-            <label for="tanggal_kembali">Tanggal Kembali</label>
-            <input type="date" name="tanggal_kembali" class="form-control" value="{{ $peminjaman->tanggal_kembali }}" required>
-        </div>
-    
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('peminjaman.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
