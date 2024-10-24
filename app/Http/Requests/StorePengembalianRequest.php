@@ -11,7 +11,7 @@ class StorePengembalianRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StorePengembalianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'peminjaman_id' => 'required|exists:peminjaman,id',
+            'tanggal_kembali' => 'required|date'
         ];
     }
 }

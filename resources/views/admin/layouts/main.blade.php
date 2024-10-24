@@ -60,7 +60,7 @@
             </li>
 
             <li class="nav-item">
-                
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -85,6 +85,7 @@
         </div>
     </div>
 
+    @yield('script')
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

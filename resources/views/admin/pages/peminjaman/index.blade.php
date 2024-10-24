@@ -12,7 +12,6 @@
                 <th>User</th>
                 <th>Item</th>
                 <th>Tanggal Pinjam</th>
-                <th>Tanggal Kembali</th>
                 <th>Actions</th>
             </tr>
         </thead>
