@@ -6,11 +6,11 @@
 
     <form action="{{ route('peminjaman.update', $peminjaman->id) }}" method="POST">
         @csrf
-        @method('PUT')
-
+        @method('PATCH')
+    
         <div class="form-group">
             <label for="user_id">User</label>
-            <select name="user_id" class="form-control" required disabled>
+            <select name="user_id" class="form-control" required>
                 <option value="">Pilih User</option>
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}" {{ $peminjaman->user_id == $user->id ? 'selected' : '' }}>
@@ -19,7 +19,7 @@
                 @endforeach
             </select>
         </div>
-
+    
         <div class="form-group">
             <label for="item_id">Item</label>
             <select name="item_id" class="form-control" required>
@@ -31,17 +31,17 @@
                 @endforeach
             </select>
         </div>
-
+    
         <div class="form-group">
             <label for="tanggal_pinjam">Tanggal Pinjam</label>
             <input type="date" name="tanggal_pinjam" class="form-control" value="{{ $peminjaman->tanggal_pinjam }}" required>
         </div>
-
+    
         <div class="form-group">
             <label for="tanggal_kembali">Tanggal Kembali</label>
             <input type="date" name="tanggal_kembali" class="form-control" value="{{ $peminjaman->tanggal_kembali }}" required>
         </div>
-
+    
         <div class="form-group">
             <label for="status">Status</label>
             <select name="status" class="form-control" required>
@@ -50,9 +50,10 @@
                 <option value="pending" {{ $peminjaman->status == 'pending' ? 'selected' : '' }}>Pending</option>
             </select>
         </div>
-
+    
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('peminjaman.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
+    
 </div>
 @endsection

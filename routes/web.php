@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/subcategory/{subcategoryId}', [ProductController::class, 'showSubCategory'])->name('products.list');
 
     // Rute Status Peminjaman
-    Route::get('/status', function () {
-        return view('status');
-    })->name('status');
+    Route::get('/status', [StatusController::class, 'index'])->name('status');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
