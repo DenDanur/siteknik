@@ -36,9 +36,9 @@
                                 <p>No image available</p>
                             @endif
                         </td>
-                        <td>{{ optional($item->detail)->description ?? 'N/A' }}</td>
-                        <td>{{ optional($item->detail)->stock ?? 'N/A' }}</td>
-                        <td>{{ optional($item->detail)->price ?? 'N/A' }}</td>
+                        <td>{{ $item->description}}</td>
+                        <td>{{ $item->stock}}</td>
+                        <td>{{ $item->price}}</td>
                         <td>
                             <a href="{{ route('items.edit', $item) }}" class="btn btn-warning">Edit</a>
 
