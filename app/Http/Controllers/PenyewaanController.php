@@ -89,4 +89,9 @@ class PenyewaanController extends Controller
     {
         return view('admin.pages.penyewaan.pengembalian',compact('penyewaan'));
     }
+
+    public function kembali(Penyewaan $penyewaan)
+    {
+        return $penyewaan;
+    }
 }

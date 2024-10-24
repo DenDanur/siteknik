@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
     Route::resource('penyewaan', PenyewaanController::class);
     Route::get('/penyewaan/{penyewaan}/pengembalian', [PenyewaanController::class, 'showpengembalian'])->name('penyewaan.pengembalian');
-
+    Route::post('/penyewaan/{penyewaan}/kembali', [PenyewaanController::class, 'kembali'])->name('penyewaan.kembali');
 });
 
 require __DIR__.'/auth.php';
