@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePeminjamanRequest extends FormRequest
+class UpdatePengembalianRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,10 +22,7 @@ class UpdatePeminjamanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'item_id' => 'required|exists:items,id',
-            'tanggal_pinjam' => 'required|date',
-            // 'tanggal_kembali' => 'required|date|after_or_equal:tanggal_pinjam'
+            //
         ];
     }
 }

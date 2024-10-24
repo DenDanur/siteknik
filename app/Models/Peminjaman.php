@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peminjaman extends Model
 {
-    protected $fillable = ['user_id','item_id','tanggal_pinjam','tanggal_kembali'];
+    protected $fillable = ['user_id', 'item_id', 'tanggal_pinjam'];
 
     public function user()
     {
@@ -16,5 +16,10 @@ class Peminjaman extends Model
     public function item()
     {
         return $this->belongsTo(Item::class);
+    }
+
+    public function pengembalian()
+    {
+        return $this->hasOne(Pengembalian::class);
     }
 }

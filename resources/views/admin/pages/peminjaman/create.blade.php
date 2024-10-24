@@ -38,12 +38,6 @@
                 <label for="tanggal_pinjam">Tanggal Pinjam</label>
                 <input type="date" name="tanggal_pinjam" class="form-control" required>
             </div>
-
-            <div class="form-group">
-                <label for="tanggal_kembali">Tanggal Kembali</label>
-                <input type="date" name="tanggal_kembali" class="form-control">
-            </div>
-
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
