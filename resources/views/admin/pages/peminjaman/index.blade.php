@@ -24,7 +24,6 @@
                     <td>{{ $item->item->name }}</td>
                     <td>{{ $item->tanggal_pinjam }}</td>
                     <td>{{ $item->tanggal_kembali ?? 'N/A' }}</td>
-                    <td>{{ $item->status }}</td>
                     <td>
                         <a href="{{ route('peminjaman.edit', $item->id) }}" class="btn btn-warning">Edit</a>
                     </td>

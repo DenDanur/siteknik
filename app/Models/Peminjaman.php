@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peminjaman extends Model
 {
-    protected $fillable = ['user_id','item_id','tanggal_pinjam','tanggal_kembali','status'];
+    protected $fillable = ['user_id','item_id','tanggal_pinjam','tanggal_kembali'];
 
     public function user()
     {

@@ -44,7 +44,7 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         try {
-            $items = Item::with(['category', 'detail'])->get();
+            $items = Item::with('category')->get();
             return view('admin.pages.item.index', compact('items'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat data');
@@ -70,8 +70,8 @@ class ItemController extends Controller
                 $validatedData['image'] = $this->handleImageUpload($request->file('image'));
             }
 
-            $item = Item::create($validatedData);
-            ItemDetail::create(array_merge($validatedData, ['item_id' => $item->id]));
+             Item::create($validatedData);
+
 
             return redirect()->route('items.index')->with('success', 'Item berhasil ditambahkan');
         } catch (\Exception $e) {
@@ -114,9 +114,7 @@ class ItemController extends Controller
 
             $item->update($validatedData);
 
-            if ($item->detail) {
-                $item->detail->update($validatedData);
-            }
+
 
             return redirect()->route('items.index')->with('success', 'Item berhasil diperbarui');
         } catch (\Exception $e) {
@@ -134,10 +132,7 @@ class ItemController extends Controller
                 $this->deleteOldImage($item->image);
             }
 
-            // Hapus item detail
-            if ($item->detail) {
-                $item->detail->delete();
-            }
+
 
             // Hapus item
             $item->delete();

@@ -10,7 +10,7 @@ class Item extends Model
 
     public function subcategory()
     {
-        return $this->belongsTo(Subcategories::class, 'subcategory_id'); 
+        return $this->belongsTo(Subcategories::class, 'subcategory_id');
     }
 
     public function category()
@@ -18,8 +18,4 @@ class Item extends Model
         return $this->hasOneThrough(Categories::class, Subcategories::class, 'id', 'id', 'subcategory_id', 'category_id');
     }
 
-    public function detail()
-    {
-        return $this->hasOne(ItemDetail::class);
-    }
 }

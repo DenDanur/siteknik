@@ -25,8 +25,7 @@ class StorePeminjamanRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'item_id' => 'required|exists:items,id',
             'tanggal_pinjam' => 'required',
-            'tanggal_kembali' => 'required',
-            'status' => 'required'
+            'tanggal_kembali' => 'required'
         ];
     }
 }

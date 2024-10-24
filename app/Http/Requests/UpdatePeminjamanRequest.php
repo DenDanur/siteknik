@@ -25,8 +25,7 @@ class UpdatePeminjamanRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'item_id' => 'required|exists:items,id',
             'tanggal_pinjam' => 'required|date',
-            'tanggal_kembali' => 'required|date|after_or_equal:tanggal_pinjam',
-            'status' => 'required|in:approved,waiting,pending',
+            'tanggal_kembali' => 'required|date|after_or_equal:tanggal_pinjam'
         ];
     }
 }

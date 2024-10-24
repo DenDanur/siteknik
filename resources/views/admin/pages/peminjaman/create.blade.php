@@ -34,16 +34,6 @@
                 <input type="date" name="tanggal_kembali" class="form-control">
             </div>
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select name="status" class="form-control" required>
-                    <option value="approved">Approved</option>
-                    <option value="waiting">Waiting</option>
-                    <option value="pending">Pending</option>
-                </select>
-            </div>
-
-
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>

@@ -8,8 +8,4 @@ class ItemDetail extends Model
 {
     protected $fillable = ['item_id','description','stock','price','image'];
 
-    public function item()
-    {
-        return $this->belongsTo(Item::class);
-    }
 }
