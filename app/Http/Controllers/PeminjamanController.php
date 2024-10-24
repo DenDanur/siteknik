@@ -43,7 +43,7 @@ class PeminjamanController extends Controller
 
 
         if ($item->stock <= 0) {
-            return redirect()->route('item.create')->with('error', 'Stok tidak cukup.');
+            return redirect()->route('peminjaman.create')->with('error', 'Stok tidak cukup.');
         }
         Peminjaman::create($validasi);
 
