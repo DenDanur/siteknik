@@ -45,4 +45,15 @@ class ProductController extends Controller
             'items' => $items,
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search'); // Ambil input pencarian
+
+        // Query pencarian berdasarkan nama item
+        $items = Item::where('name', 'like', '%' . $search . '%')->get();
+
+        // Kirim data ke view khusus pencarian
+        return view('products.search', compact('items', 'search'));
+    }
 }

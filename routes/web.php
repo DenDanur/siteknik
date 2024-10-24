@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/category/{categoryId}', [ProductController::class, 'showCategory'])->name('products.category');
     Route::get('/products/subcategory/{subcategoryId}', [ProductController::class, 'showSubCategory'])->name('products.list');
+    Route::get('/search', [ProductController::class, 'search'])->name('items.search');
 
     // Rute Status Peminjaman
     Route::get('/status', [StatusController::class, 'index'])->name('status');
