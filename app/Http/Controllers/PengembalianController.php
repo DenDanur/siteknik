@@ -17,7 +17,7 @@ class PengembalianController extends Controller
     public function index()
     {
         // Menampilkan daftar pengembalian
-        $pengembalians = Pengembalian::with('peminjaman')->get();
+        $pengembalians = Peminjaman::all();
         return view('admin.pages.pengembalian.index', compact('pengembalians'));
     }
 

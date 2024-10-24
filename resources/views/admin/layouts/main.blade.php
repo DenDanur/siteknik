@@ -38,7 +38,7 @@
 
 <body>
     <div class="sidebar p-3">
-        <h4>Admin Panel</h4>
+        <h4>HUMAM GUNSHOP ADMIN</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('categories.index') }}">Category</a>
@@ -50,10 +50,7 @@
                 <a class="nav-link" href="{{ route('items.index') }}">Items</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('peminjaman.index') }}">Peminjaman</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('pengembalian.index') }}">Pengembalian</a>
+                <a class="nav-link" href="{{ route('penyewaan.index') }}">Penyewaan</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Users</a>

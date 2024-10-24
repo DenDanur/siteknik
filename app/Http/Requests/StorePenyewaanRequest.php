@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePengembalianRequest extends FormRequest
+class StorePenyewaanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,12 @@ class StorePengembalianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'peminjaman_id' => 'required|exists:peminjaman,id',
-            'tanggal_kembali' => 'required|date'
+            'user_id' => 'required|exists:users,id',
+            'item_id' => 'required|exists:items,id',
+            'tanggal_pinjam' => 'required|date',
+            'tanggal_kembali' => 'nullable|date|after:tanggal_pinjam',
+            'denda' => 'nullable|numeric|min:0',
+            'jumlah' => 'required|integer|min:1|max:2',
         ];
     }
 }

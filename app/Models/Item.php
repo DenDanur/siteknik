@@ -18,8 +18,8 @@ class Item extends Model
         return $this->hasOneThrough(Categories::class, Subcategories::class, 'id', 'id', 'subcategory_id', 'category_id');
     }
 
-    public function peminjaman()
+    public function penyewaan()
     {
-        return $this->hasMany(Peminjaman::class);
+        return $this->hasMany(Penyewaan::class);
     }
 }

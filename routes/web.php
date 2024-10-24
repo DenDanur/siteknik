@@ -3,8 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
@@ -47,8 +46,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', CategoriesController::class);
     Route::resource('subcategories', SubcategoriesController::class);
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
-    Route::resource('peminjaman', PeminjamanController::class);
-    Route::resource('pengembalian', PengembalianController::class);
+    Route::resource('penyewaan', PenyewaanController::class);
+    Route::get('/penyewaan/{penyewaan}/pengembalian', [PenyewaanController::class, 'showpengembalian'])->name('penyewaan.pengembalian');
+
 });
 
 require __DIR__.'/auth.php';
