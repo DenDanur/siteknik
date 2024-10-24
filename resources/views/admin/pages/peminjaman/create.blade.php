@@ -3,7 +3,17 @@
 @section('content')
     <div class="container">
         <h1>Add New Peminjaman</h1>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <form action="{{ route('peminjaman.store') }}" method="POST">
             @csrf
             <div class="form-group">
