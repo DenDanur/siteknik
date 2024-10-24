@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoriesController;
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', CategoriesController::class);
     Route::resource('subcategories', SubcategoriesController::class);
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
+    Route::resource('peminjaman', PeminjamanController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -44,6 +44,9 @@
                 <a class="nav-link" href="{{ route('items.index') }}">Items</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('peminjaman.index') }}">Peminjaman</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">Users</a>
             </li>
             <li class="nav-item">
@@ -61,7 +64,7 @@
                     </x-dropdown-link>
                 </form>
             </li>
-            
+
             <!-- Tambahkan item menu lainnya sesuai kebutuhan -->
         </ul>
     </div>
