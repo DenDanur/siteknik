@@ -136,4 +136,9 @@ class PenyewaanController extends Controller
         $histories = Histories::with(['user', 'item'])->orderBy('created_at', 'desc')->get();
         return view('admin.pages.histories.index', compact('histories'));
     }
+
+    public function kembali(Penyewaan $penyewaan)
+    {
+        return $penyewaan;
+    }
 }
