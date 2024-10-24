@@ -37,7 +37,7 @@ class ProductController extends Controller
         // Temukan kategori berdasarkan ID
         $subcategories = Subcategories::findOrFail($subcategoryId);
 
-        $items = Item::with('detail')->where('subcategory_id', $subcategoryId)->get();;
+        $items = Item::where('subcategory_id', $subcategoryId)->get();;
 
         // Kirim data kategori dan produk ke view
         return view('products.list', [

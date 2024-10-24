@@ -11,7 +11,8 @@
                 <div class="bg-white shadow-md rounded-lg overflow-hidden hover:scale-105 transform transition-all duration-300 p-6 cursor-pointer"
                      onclick="openModal({{ json_encode($item) }})">
                     <h3 class="text-lg font-semibold mb-2">{{ $item->name }}</h3>
-                    <p class="text-gray-600">Rp.{{ $item->detail->price }}</p>
+                    <p class="text-gray-600">Rp.{{ number_format($item->price, 0, ',', '.') }}</p>
+
                 </div>
             @empty
                 <p class="text-gray-600">No products available in this subcategory.</p>
@@ -35,8 +36,8 @@
         function openModal(product) {
             // Set content in the modal
             document.getElementById('modalTitle').innerText = product.name;
-            document.getElementById('modalDescription').innerText = product.detail.description || 'No description available';
-            document.getElementById('modalPrice').innerText = product.detail.price ? `Rp.${product.detail.price}` : '';
+            document.getElementById('modalDescription').innerText = product.description || 'No description available';
+            document.getElementById('modalPrice').innerText = product.price ? `Rp.${formatRupiah(product.price)}` : '';
 
             // Show the modal by removing the 'hidden' class
             document.getElementById('itemModal').classList.remove('hidden');
@@ -46,5 +47,11 @@
             // Hide the modal by adding the 'hidden' class
             document.getElementById('itemModal').classList.add('hidden');
         }
+
+        // Fungsi untuk memformat angka sebagai Rupiah
+        function formatRupiah(angka) {
+            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
     </script>
 </x-app-layout>
