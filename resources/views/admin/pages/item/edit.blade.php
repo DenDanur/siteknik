@@ -24,17 +24,17 @@
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea name="description" class="form-control" required>{{ $item->detail->description }}</textarea>
+            <textarea name="description" class="form-control" required>{{ $item->description }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="stock">Stock</label>
-            <input type="number" name="stock" class="form-control" value="{{ $item->detail->stock }}" required>
+            <input type="number" name="stock" class="form-control" value="{{ $item->stock }}" required>
         </div>
 
         <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" name="price" class="form-control" step="0.01" value="{{ $item->detail->price }}" required>
+            <input type="number" name="price" class="form-control" step="0.01" value="{{ $item->price }}" required>
         </div>
 
         <div class="form-group">
