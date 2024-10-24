@@ -38,7 +38,17 @@ class PeminjamanController extends Controller
     {
         $validasi = $request->validated();
 
+        $item = Item::find($request->item_id);
+
+        return $item;
+
+        if ($item->stock <= 0) {
+            return redirect()->back()->with('error', 'Stok tidak cukup.');
+        }
         Peminjaman::create($validasi);
+
+        $item->stock -= 1;
+        $item->save();
 
         return redirect()->route('peminjaman.index');
     }
