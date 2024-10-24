@@ -10,7 +10,7 @@ class Subcategories extends Model
 
 
     public function category()
-    {
-        return $this->belongsTo(Categories::class);
-    }
+{
+    return $this->belongsTo(Categories::class, 'category_id');
+}
 }

@@ -1,4 +1,32 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen">
+    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
+        <h1 class="text-2xl font-bold text-white mb-6">Selamat Datang di Humam Gunshop</h1>
+        @if (Route::has('login'))
+            @auth
+                <a href="{{ url('/dashboard') }}" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-4">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 bg-primary dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-secondary dark:hover:bg-white focus:bg-secondary dark:focus:bg-white active:bg-primary dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Log in</a>
+
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Register</a>
+                @endif
+            @endauth
+        @endif
+    </div>
+</body>
+</html>
+
+
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -173,4 +201,4 @@
             </div>
         </div>
     </body>
-</html>
+</html> --}}
