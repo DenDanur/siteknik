@@ -53,6 +53,9 @@
                 <a class="nav-link" href="{{ route('penyewaan.index') }}">Penyewaan</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('penyewaan.history') }}">History</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">Users</a>
             </li>
 

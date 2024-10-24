@@ -49,6 +49,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
     Route::resource('penyewaan', PenyewaanController::class);
     Route::get('/penyewaan/{penyewaan}/pengembalian', [PenyewaanController::class, 'showpengembalian'])->name('penyewaan.pengembalian');
+    Route::get('/admin/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
+    Route::post('/admin/penyewaan/{penyewaan}/process-return', [PenyewaanController::class, 'processReturn'])->name('penyewaan.process-return');
 
 });
 

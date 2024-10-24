@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Peminjaman;
+use App\Models\Penyewaan;
 
 class StatusController extends Controller
 {
@@ -12,7 +12,7 @@ class StatusController extends Controller
     $userId = Auth::id();
 
     // Query peminjaman berdasarkan user yang login
-    $peminjaman = Peminjaman::where('user_id', $userId)
+    $peminjaman = Penyewaan::where('user_id', $userId)
                             ->with(['item'])
                             ->get();
 

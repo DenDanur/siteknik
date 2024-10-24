@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="#" method="POST">
+        <form action="{{ route('penyewaan.process-return', $penyewaan->id) }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="user_id">User</label>
