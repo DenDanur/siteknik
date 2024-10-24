@@ -15,11 +15,7 @@
             </div>
         @endif
 
-<<<<<<< HEAD
-        <form action="{{ route('penyewaan.process-return', $penyewaan->id) }}" method="POST">
-=======
         <form action="{{ route('penyewaan.kembali')}}" method="POST">
->>>>>>> 10ed71598a849c890f021595278e35658cc1b267
             @csrf
             <div class="form-group">
                 <label for="user_id">User</label>

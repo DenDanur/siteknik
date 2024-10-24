@@ -49,13 +49,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
     Route::resource('penyewaan', PenyewaanController::class);
     Route::get('/penyewaan/{penyewaan}/pengembalian', [PenyewaanController::class, 'showpengembalian'])->name('penyewaan.pengembalian');
-<<<<<<< HEAD
     Route::get('/admin/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
     Route::post('/admin/penyewaan/{penyewaan}/process-return', [PenyewaanController::class, 'processReturn'])->name('penyewaan.process-return');
 
-=======
     Route::post('/penyewaan/{penyewaan}/kembali', [PenyewaanController::class, 'kembali'])->name('penyewaan.kembali');
->>>>>>> 10ed71598a849c890f021595278e35658cc1b267
 });
 
 require __DIR__.'/auth.php';
