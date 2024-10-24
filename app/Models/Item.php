@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = ['name','subcategory_id'];
+    protected $fillable = ['name','subcategory_id','description','stock','price','image'];
 
     public function subcategory()
     {
@@ -18,4 +18,8 @@ class Item extends Model
         return $this->hasOneThrough(Categories::class, Subcategories::class, 'id', 'id', 'subcategory_id', 'category_id');
     }
 
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 }
