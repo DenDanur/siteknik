@@ -32,4 +32,9 @@ Admin
 - Pengembalian item
 - Read, Export to PDF History
 
+Skema Database
+
+![Skema Database](https://github.com/user-attachments/assets/968c814b-1549-40f7-94d3-5bceee054255)
+
+
 
