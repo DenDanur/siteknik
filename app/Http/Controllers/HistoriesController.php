@@ -15,11 +15,11 @@ class HistoriesController extends Controller
         $userId = Auth::id();
     
         // Query peminjaman berdasarkan user yang login
-        $peminjaman = Histories::where('user_id', $userId)
+        $history = Histories::where('user_id', $userId)
                                 ->with(['item'])
                                 ->get();
     
         // Kirim data ke view
-        return view('status', compact('peminjaman'));
+        return view('history', compact('history'));
     }
 }

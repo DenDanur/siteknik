@@ -10,6 +10,8 @@ use App\Models\Histories;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 
 class PenyewaanController extends Controller
@@ -57,14 +59,6 @@ class PenyewaanController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Penyewaan $penyewaan)
-    {
-
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Penyewaan $penyewaan)
@@ -101,15 +95,9 @@ class PenyewaanController extends Controller
 
     public function kembalikan(Request $request, Penyewaan $penyewaan)
     {
-
-
-
-
-
         $request->validate([
             'kembali' => 'required|date'
         ]);
-
 
         $tanggal_kembali = \Carbon\Carbon::parse($request->kembali);
         $tanggal_pinjam = \Carbon\Carbon::parse($penyewaan->tanggal_pinjam);
@@ -143,7 +131,19 @@ class PenyewaanController extends Controller
         return redirect()->route('penyewaan.index')->with('success', 'Item has been returned successfully');
     }
 
+    public function exportPdf()
+    {
+        // Ambil semua data penyewaan untuk PDF
+        $riwayats = Histories::all();
 
+        // Hitung total harga untuk setiap item peminjaman dan batas peminjaman
+        foreach ($riwayats as $history) {
+            $history->totalHarga = $history->item->price * $history->jumlah;
+            // $history->tanggal_kembali = Carbon::parse($history->tanggal_pinjam)->addDays(5)->format('Y-m-d');
+        }
 
-
+        // Load the view for PDF export
+        $pdf = PDF::loadView('admin.pages.histories.history_pdf', compact('riwayats'));
+        return $pdf->download('history_peminjaman_admin.pdf');
+    }
 }

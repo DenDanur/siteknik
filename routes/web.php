@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\HistoriesController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProfileController;
@@ -10,22 +11,19 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SubcategoriesController;
 use App\Http\Controllers\ViewUser;
 use App\Http\Controllers\ViewuserController;
-use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth', 'verified'])->group(function () {
     // Rute Home
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     // Rute Product
     Route::get('/product', function () {
@@ -39,6 +37,7 @@ Route::middleware('auth')->group(function () {
 
     // Rute Status Peminjaman
     Route::get('/status', [StatusController::class, 'index'])->name('status');
+    Route::get('/history', [HistoriesController::class, 'index'])->name('history');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -52,7 +51,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
     Route::resource('penyewaan', PenyewaanController::class);
     Route::get('/penyewaan/{penyewaan}/pengembalian', [PenyewaanController::class, 'showpengembalian'])->name('penyewaan.pengembalian');
-    Route::get('/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
+    Route::get('/admin/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
+    Route::get('/admin/history/export-pdf', [PenyewaanController::class, 'exportPdf'])->name('admin.history.exportPdf');
     // Route::post('/penyewaan/{penyewaan}/kembali', [PenyewaanController::class, 'kembali'])->name('penyewaan.kembali');
     Route::post('penyewaan/{penyewaan}/kembalikan' , [PenyewaanController::class, 'kembalikan'])->name('penyewaan.kembalikan');
     Route::resource('viewuser' , ViewuserController::class);

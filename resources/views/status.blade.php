@@ -18,13 +18,19 @@
                                 Item
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Harga
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Jumlah
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Total Harga
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Tanggal Pinjam
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Tanggal Kembali
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
+                                Batas Peminjaman
                             </th>
                         </tr>
                     </thead>
@@ -38,24 +44,39 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-500">
+                                        {{ number_format($pinjam->item->price, 0, ',', '.') }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-500">
+                                        {{ $pinjam->jumlah }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-500">
+                                        {{ number_format($pinjam->totalHarga, 0, ',', '.') }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-500">
                                         {{ $pinjam->tanggal_pinjam }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-500">
-                                        {{ $pinjam->tanggal_kembali }}
+                                        {{ $pinjam->batas_peminjaman }}
                                     </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                        {{ $pinjam->status === 'approved' ? 'bg-green-100 text-green-800' : 
-                                           ($pinjam->status === 'waiting' ? 'bg-yellow-100 text-yellow-800' : 
-                                           'bg-red-100 text-red-800') }}">
-                                        {{ ucfirst($pinjam->status) }}
-                                    </span>
                                 </td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 whitespace-nowrap text-right font-semibold text-gray-700">
+                                Total Keseluruhan:
+                            </td>
+                            <td colspan="3" class="px-6 py-4 whitespace-nowrap font-semibold text-gray-700">
+                                {{ number_format($grandTotal, 0, ',', '.') }}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
