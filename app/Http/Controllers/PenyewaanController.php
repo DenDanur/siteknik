@@ -50,7 +50,7 @@ class PenyewaanController extends Controller
         }
         Penyewaan::create($validasi);
 
-        $item->stock -= 1;
+        $item->stock -= $validasi['jumlah'];
         $item->save();
 
         return redirect()->route('penyewaan.index');
@@ -61,7 +61,7 @@ class PenyewaanController extends Controller
      */
     public function show(Penyewaan $penyewaan)
     {
-        //
+
     }
 
     /**
@@ -93,16 +93,27 @@ class PenyewaanController extends Controller
         return view('admin.pages.penyewaan.pengembalian', compact('penyewaan'));
     }
 
-    public function processReturn(Request $request, Penyewaan $penyewaan)
+    public function history()
     {
+        $riwayats = Histories::all();
+        return view('admin.pages.histories.index', compact('riwayats'));
+    }
+
+    public function kembalikan(Request $request, Penyewaan $penyewaan)
+    {
+
+
+
+
+
         $request->validate([
             'kembali' => 'required|date'
         ]);
 
-        // Calculate fine (denda) if needed
+
         $tanggal_kembali = \Carbon\Carbon::parse($request->kembali);
         $tanggal_pinjam = \Carbon\Carbon::parse($penyewaan->tanggal_pinjam);
-        
+
         $denda = 0;
         if ($tanggal_kembali->gt($tanggal_pinjam->addDays(7))) {
             $daysLate = $tanggal_kembali->diffInDays($tanggal_pinjam->addDays(7));
@@ -111,19 +122,20 @@ class PenyewaanController extends Controller
 
         // Create history record
         Histories::create([
-            'user_id' => $penyewaan->user_id,
-            'item_id' => $penyewaan->item_id,
-            'tanggal_pinjam' => $penyewaan->tanggal_pinjam,
+            'user_id' => $request->user_id,
+            'item_id' => $request->item_id,
+            'tanggal_pinjam' => $request->tanggal_pinjam,
             'tanggal_kembali' => $request->kembali,
             'denda' => $denda,
-            'jumlah' => $penyewaan->jumlah,
-            'total_harga' => $penyewaan->total_harga
+            'jumlah' => $request->jumlah,
+            'total_harga' => $request->total_harga
         ]);
 
         // Update item stock
-        $item = Item::find($penyewaan->item_id);
-        $item->stock += $penyewaan->jumlah;
+        $item = Item::find($request->item_id);
+        $item->stock += $request->jumlah;
         $item->save();
+
 
         // Delete the rental record
         $penyewaan->delete();
@@ -131,14 +143,7 @@ class PenyewaanController extends Controller
         return redirect()->route('penyewaan.index')->with('success', 'Item has been returned successfully');
     }
 
-    public function history()
-    {
-        $histories = Histories::with(['user', 'item'])->orderBy('created_at', 'desc')->get();
-        return view('admin.pages.histories.index', compact('histories'));
-    }
 
-    public function kembali(Penyewaan $penyewaan)
-    {
-        return $penyewaan;
-    }
+
+
 }

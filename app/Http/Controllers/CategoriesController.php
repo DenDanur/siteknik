@@ -29,7 +29,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $validasi = $request->validate(['name' => 'required|string|max:255']);
+        $validasi = $request->validate(['name' => 'required|string|max:255|unique:categories,name']);
         Categories::create($validasi);
         return redirect()->route('categories.index');
     }

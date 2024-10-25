@@ -8,6 +8,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SubcategoriesController;
+use App\Http\Controllers\ViewUser;
+use App\Http\Controllers\ViewuserController;
+use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,10 +52,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/item/create', [ItemController::class, 'create'])->name('item.create');
     Route::resource('penyewaan', PenyewaanController::class);
     Route::get('/penyewaan/{penyewaan}/pengembalian', [PenyewaanController::class, 'showpengembalian'])->name('penyewaan.pengembalian');
-    Route::get('/admin/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
-    Route::post('/admin/penyewaan/{penyewaan}/process-return', [PenyewaanController::class, 'processReturn'])->name('penyewaan.process-return');
-
-    Route::post('/penyewaan/{penyewaan}/kembali', [PenyewaanController::class, 'kembali'])->name('penyewaan.kembali');
+    Route::get('/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
+    // Route::post('/penyewaan/{penyewaan}/kembali', [PenyewaanController::class, 'kembali'])->name('penyewaan.kembali');
+    Route::post('penyewaan/{penyewaan}/kembalikan' , [PenyewaanController::class, 'kembalikan'])->name('penyewaan.kembalikan');
+    Route::resource('viewuser' , ViewuserController::class);
+    Route::get('/viewuser/{history}/history', [ViewuserController::class, 'history'])->name('viewuser.history');
 });
 
 require __DIR__.'/auth.php';

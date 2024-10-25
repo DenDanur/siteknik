@@ -15,18 +15,29 @@
             </div>
         @endif
 
-        <form action="{{ route('penyewaan.kembali')}}" method="POST">
+        <form action="{{ route('penyewaan.kembalikan', $penyewaan->id) }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="user_id">User</label>
-                <input type="text" id="user_id" name="user_id" class="form-control" value="{{ $penyewaan->user->name }}"
+                <label for="user_name">User</label>
+                <input type="text" id="user_name" name="user_name" class="form-control" value="{{ $penyewaan->user->name }}"
                     readonly>
+            </div>
+            <div class="form-group">
+
+                <input type="text" id="user_id" name="user_id" class="form-control" value="{{ $penyewaan->user->id }}"
+                    hidden>
             </div>
 
             <div class="form-group">
-                <label for="item_id">Item</label>
-                <input type="text" id="item_id" name="item_id" class="form-control"
+                <label for="item_name">Item</label>
+                <input type="text" id="item_name" name="item_name" class="form-control"
                     value="{{ $penyewaan->item->name }}" readonly>
+            </div>
+
+            <div class="form-group">
+
+                <input type="text" id="item_id" name="item_id" class="form-control" value="{{ $penyewaan->item->id }}"
+                    hidden>
             </div>
 
             <div class="form-group">
@@ -46,8 +57,9 @@
             </div>
 
             <div class="form-group">
-                <label for="harga">Tanggal Pinjam</label>
-                <input type="text" id="harga" class="form-control" value="{{ $penyewaan->tanggal_pinjam }}" readonly>
+                <label for="tanggal_pinjam">Tanggal Pinjam</label>
+                <input type="text" id="tanggal_pinjam" class="form-control" name="tanggal_pinjam"
+                    value="{{ $penyewaan->tanggal_pinjam }}" readonly>
             </div>
 
             <div class="form-group">
@@ -61,10 +73,10 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="denda">Denda</label>
                 <input type="text" id="denda" class="form-control" value="{{ $penyewaan->denda }}" readonly>
-            </div>
+            </div> --}}
 
 
             <button type="submit" class="btn btn-primary">Save</button>

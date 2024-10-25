@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($histories as $history)
+                @foreach ($riwayats as $history)
                     <tr>
                         <td>{{ $history->user->name }}</td>
                         <td>{{ $history->item->name }}</td>
