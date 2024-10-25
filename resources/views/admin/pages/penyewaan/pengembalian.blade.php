@@ -62,7 +62,7 @@
                     value="{{ $penyewaan->tanggal_pinjam }}" readonly>
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="kembali">Tanggal Kembali</label>
                 <input type="date" name="kembali" class="form-control @error('tanggal_kembali')  is-invalid @enderror"
                     required>
@@ -71,7 +71,18 @@
                         <span class="alert-text text-white">{{ $message }}</span>
                     </div>
                 @enderror
+            </div> --}}
+            <div class="form-group">
+                <label for="kembali">Tanggal Kembali</label>
+                <input type="date" name="tanggal_kembali" class="form-control @error('tanggal_kembali')  is-invalid @enderror"
+                    required>
+                @error('tanggal_kembali')
+                    <div class="alert alert-danger mt-1">
+                        <span class="alert-text text-white">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
+            
 
             {{-- <div class="form-group">
                 <label for="denda">Denda</label>

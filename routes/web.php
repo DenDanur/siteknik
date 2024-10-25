@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/history', [PenyewaanController::class, 'history'])->name('penyewaan.history');
     Route::get('/admin/history/export-pdf', [PenyewaanController::class, 'exportPdf'])->name('admin.history.exportPdf');
     // Route::post('/penyewaan/{penyewaan}/kembali', [PenyewaanController::class, 'kembali'])->name('penyewaan.kembali');
-    Route::post('penyewaan/{penyewaan}/kembalikan' , [PenyewaanController::class, 'kembalikan'])->name('penyewaan.kembalikan');
+    Route::post('penyewaan/{penyewaan}/kembalikan' , [PenyewaanController::class, 'saveHistory'])->name('penyewaan.kembalikan');
     Route::resource('viewuser' , ViewuserController::class);
     Route::get('/viewuser/{history}/history', [ViewuserController::class, 'history'])->name('viewuser.history');
 });

@@ -131,6 +131,44 @@ class PenyewaanController extends Controller
         return redirect()->route('penyewaan.index')->with('success', 'Item has been returned successfully');
     }
 
+    public function saveHistory(Request $request, $id)
+    {
+        // Ambil data penyewaan berdasarkan ID
+        $penyewaan = Penyewaan::findOrFail($id);
+
+        // Ambil tanggal kembali dari input (pastikan form mengirimkan tanggal_kembali)
+        $tanggal_kembali = $request->input('tanggal_kembali');
+
+        // Hitung batas peminjaman sebagai 7 hari setelah tanggal_pinjam
+        $batas_peminjaman = Carbon::parse($penyewaan->tanggal_pinjam)->addDays(7);
+
+        // Hitung denda berdasarkan selisih hari antara batas peminjaman dan tanggal kembali
+        $selisih_hari = $batas_peminjaman->diffInDays($tanggal_kembali, false); // false: negative if before batas_peminjaman
+        $denda = $selisih_hari > 0 ? $selisih_hari * 10000 : 0; // Contoh: denda 5000 per hari keterlambatan
+
+        $jumlah = $penyewaan->jumlah;
+        $harga = $penyewaan->item->price;
+        $total_harga = $jumlah * $harga;
+
+        // Simpan data baru ke tabel histories
+        Histories::create([
+            'penyewaan_id' => $penyewaan->id,
+            'user_id' => $penyewaan->user_id,
+            'item_id' => $penyewaan->item_id,
+            'tanggal_pinjam' => $penyewaan->tanggal_pinjam,
+            'tanggal_kembali' => $tanggal_kembali,
+            'denda' => $denda,
+            'jumlah' => $jumlah,
+            'total_harga' => $total_harga,
+        ]);
+
+        // Delete the rental record
+        $penyewaan->delete();
+
+        // Redirect atau memberikan pesan sukses
+        return redirect()->route('penyewaan.index')->with('success', 'Item has been returned successfully');
+    }
+
     public function exportPdf()
     {
         // Ambil semua data penyewaan untuk PDF

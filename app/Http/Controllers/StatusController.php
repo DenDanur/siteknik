@@ -28,7 +28,7 @@ class StatusController extends Controller
             $grandTotal += $pinjam->totalHarga;
 
             // Tambahkan kolom batas peminjaman (5 hari setelah tanggal_pinjam)
-            $pinjam->batas_peminjaman = Carbon::parse($pinjam->tanggal_pinjam)->addDays(5)->format('Y-m-d');
+            $pinjam->batas_peminjaman = Carbon::parse($pinjam->tanggal_pinjam)->addDays(7)->format('Y-m-d');
         }
 
         // Kirim data ke view

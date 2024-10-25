@@ -43,37 +43,37 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ number_format($pinjam->item->price, 0, ',', '.') }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ $pinjam->jumlah }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ number_format($pinjam->totalHarga, 0, ',', '.') }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ $pinjam->tanggal_pinjam }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ $pinjam->batas_peminjaman }}
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="3" class="px-6 py-4 whitespace-nowrap text-right font-semibold text-gray-700">
+                            <td colspan="3" class="px-6 py-4 whitespace-nowrap text-right font-semibold text-gray-900">
                                 Total Keseluruhan:
                             </td>
-                            <td colspan="3" class="px-6 py-4 whitespace-nowrap font-semibold text-gray-700">
+                            <td colspan="3" class="px-6 py-4 whitespace-nowrap font-semibold text-gray-900">
                                 {{ number_format($grandTotal, 0, ',', '.') }}
                             </td>
                         </tr>

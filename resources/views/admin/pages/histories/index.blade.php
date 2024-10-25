@@ -33,10 +33,11 @@
                             <td>{{ $history->user->name }}</td>
                             <td>{{ $history->item->name }}</td>
                             <td>{{ $history->jumlah }}</td>
-                            <td>{{ $history->total_harga }}</td>
+                            <td>{{ number_format($history->total_harga, 0, ',', '.') }}</td>
                             <td>{{ $history->tanggal_pinjam }}</td>
                             <td>{{ $history->tanggal_kembali }}</td>
-                            <td>{{ $history->denda ?? '-' }}</td>
+                            <td>{{ number_format($history->denda, 0, ',', '.') }}</td>
+                            {{-- <td>{{ $history->denda ?? '-' }}</td> --}}
                         </tr>
                     @endforeach
                 </tbody>

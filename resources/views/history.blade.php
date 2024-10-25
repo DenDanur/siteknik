@@ -24,13 +24,13 @@
                                 Jumlah
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Denda
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Tanggal Pinjam
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Tanggal Kembali
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Denda
                             </th>
                             
                         </tr>
@@ -44,38 +44,30 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
+                                        {{ number_format($history->item->price, 0, ',', '.') }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
                                         {{ $history->jumlah }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {{ $history->total_harga }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {{ $history->denda }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ $history->tanggal_pinjam }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
+                                    <div class="text-sm text-gray-900">
                                         {{ $history->tanggal_kembali }}
                                     </div>
                                 </td>
-                                {{-- <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                        {{ $pinjam->status === 'approved' ? 'bg-green-100 text-green-800' : 
-                                           ($pinjam->status === 'waiting' ? 'bg-yellow-100 text-yellow-800' : 
-                                           'bg-red-100 text-red-800') }}">
-                                        {{ ucfirst($pinjam->status) }}
-                                    </span>
-                                </td> --}}
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        {{ number_format($history->denda, 0, ',', '.') }}
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

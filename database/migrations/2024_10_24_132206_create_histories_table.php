@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('tanggal_kembali');
             $table->decimal('denda', 10, 2)->nullable();
             $table->integer('jumlah');
-            $table->decimal('total_harga', 10, 2);
+            $table->bigInteger('total_harga')->unsigned();
             $table->timestamps();
         });
     }
