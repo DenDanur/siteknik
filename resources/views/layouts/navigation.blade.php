@@ -29,6 +29,12 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('status')" :active="request()->routeIs('status')">
+                        {{ __('History') }}
+                    </x-nav-link>
+                </div>
+
                 <form action="{{ route('items.search') }}" method="GET" class="flex items-center mx-16">
                     <x-text-input 
                         name="search" 
