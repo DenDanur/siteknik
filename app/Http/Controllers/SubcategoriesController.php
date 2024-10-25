@@ -33,7 +33,9 @@ class SubcategoriesController extends Controller
     public function store(Request $request)
     {
 
-        $validasi = $request->validate(['name' => 'required|string|max:255','category_id' => 'required|exists:categories,id',]);
+        $validasi = $request->validate([
+            'name' => 'required|string|max:255|unique:subcategories,name,',
+            'category_id' => 'required|exists:categories,id',]);
         Subcategories::create($validasi);
         return redirect()->route('subcategories.index');
     }

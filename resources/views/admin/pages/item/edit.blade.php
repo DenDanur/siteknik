@@ -38,7 +38,18 @@
         </div>
 
         <div class="form-group">
-            <label for="image">Image</label>
+            <label for="image">Current Image</label>
+            @if ($item->image)
+                <div>
+                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="150">
+                </div>
+            @else
+                <p>No image available</p>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label for="image">Upload New Image</label>
             <input type="file" name="image" class="form-control">
         </div>
 

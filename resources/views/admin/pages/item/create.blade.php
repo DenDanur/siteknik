@@ -8,8 +8,23 @@
         @csrf
 
         <div class="form-group">
+            <label for="item_code">Item Code</label>
+            <input type="text" name="item_code" class="form-control @error('item_code')  is-invalid @enderror" required>
+            @error('item_code')
+            <div class="alert alert-danger mt-1">
+                <span class="alert-text text-white">{{ $message }}</span>
+            </div>
+        @enderror
+        </div>
+
+        <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" required>
+            <input type="text" name="name" class="form-control @error('name')  is-invalid @enderror" required>
+            {{-- @error('name')
+            <div class="alert alert-danger mt-1">
+                <span class="alert-text text-white">{{ $message }}</span>
+            </div>
+        @enderror --}}
         </div>
 
         <div class="form-group">

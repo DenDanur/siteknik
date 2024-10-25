@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="jumlah">Jumlah</label>
                 <input type="number" id="jumlah" name="jumlah"
-                    class="form-control @error('jumlah')  is-invalid @enderror " required>
+                    class="form-control @error('jumlah')  is-invalid @enderror" required>
                 @error('jumlah')
                     <div class="alert alert-danger mt-1">
                         <span class="alert-text text-white">{{ $message }}</span>

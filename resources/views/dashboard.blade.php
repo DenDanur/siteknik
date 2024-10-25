@@ -1,9 +1,22 @@
 <x-app-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-            Dashboard
+            Home
         </h2>
-    </x-slot>
+    </x-slot> --}}
+
+    <div class="container flex flex-col sm:flex-row justify-center my-32 gap-32">
+        <div class="welcome flex items-center text-white max-w-full">
+            <h1 class="text-4xl font-bold">Selamat Datang di Mambalabu Gunshop, 
+                <span class="w-full block">{{ Auth::user()->name }}</span>
+            </h1>
+        </div>
+    
+        <div class="mambalabu w-64 h-64">
+            <img src="{{ asset('images/mambalabu.jpeg') }}" alt="">
+        </div>
+    </div>
+    
 
     {{-- <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <div x-data="{ currentImage: 0 }" class="relative w-full max-w-4xl mx-auto">

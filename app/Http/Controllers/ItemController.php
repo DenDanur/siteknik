@@ -14,32 +14,36 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
     private function deleteOldImage($imagePath)
-    {
-        if ($imagePath && Storage::disk('public')->exists('uploads/' . $imagePath)) {
-            Storage::disk('public')->delete('uploads/' . $imagePath);
-        }
+{
+    // Ensure that $imagePath does not already include 'uploads/'
+    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+        Storage::disk('public')->delete($imagePath);
     }
+}
 
-    private function handleImageUpload($image, $oldImage = null)
-    {
-        try {
-            // Hapus gambar lama terlebih dahulu jika ada
-            if ($oldImage) {
-                $this->deleteOldImage($oldImage);
-            }
-
-            // Generate nama file yang unik
-            $imageName = time() . '_' . $image->getClientOriginalName();
-
-            // Simpan gambar baru
-            $image->storeAs('uploads', $imageName, 'public');
-
-            return $imageName;
-        } catch (\Exception $e) {
-            // Log::error('Image upload error: ' . $e->getMessage());
-            throw new \Exception('Gagal mengupload gambar: ' . $e->getMessage());
+private function handleImageUpload($image, $oldImage = null)
+{
+    try {
+        // Delete the old image if it exists
+        if ($oldImage) {
+            $this->deleteOldImage($oldImage);
         }
+
+        // Generate a unique file name
+        $imageName = time() . '_' . $image->getClientOriginalName();
+
+        // Save the new image in the 'uploads' directory under 'public'
+        $image->storeAs('uploads', $imageName, 'public');
+
+        // Return the path to the image that can be saved in the database
+        return 'uploads/' . $imageName;
+    } catch (\Exception $e) {
+        // Uncomment the line below if you want to log the error for further inspection
+        // Log::error('Image upload error: ' . $e->getMessage());
+        throw new \Exception('Gagal mengupload gambar: ' . $e->getMessage());
     }
+}
+
 
     public function index(Request $request)
     {
@@ -101,28 +105,24 @@ class ItemController extends Controller
     }
 
     public function update(UpdateItemRequest $request, Item $item)
-    {
-        try {
-            $validatedData = $request->validated();
+{
+    try {
+        $validatedData = $request->validated();
 
-            if ($request->hasFile('image')) {
-                $validatedData['image'] = $this->handleImageUpload(
-                    $request->file('image'),
-                    $item->image // Pass old image for deletion
-                );
-            }
-
-            $item->update($validatedData);
-
-
-
-            return redirect()->route('items.index')->with('success', 'Item berhasil diperbarui');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui item: ' . $e->getMessage());
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $this->handleImageUpload($request->file('image'), $item->image);
         }
+
+        // Update the item
+        $item->update($validatedData);
+
+        return redirect()->route('items.index')->with('success', 'Item berhasil diperbarui');
+    } catch (\Exception $e) {
+        return redirect()->back()->withInput()->with('error', 'Gagal memperbarui item: ' . $e->getMessage());
     }
+}
+
 
     public function destroy(Item $item)
     {

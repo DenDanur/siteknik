@@ -30,8 +30,7 @@
                         <td>{{ $item->subcategory->name }}</td>
                         <td>
                             @if ($item->image)
-                                <img src="{{ url('storage/uploads/image/'. $item->image) }}" alt="Current Image"
-                                    width="100">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="100">
                             @else
                                 <p>No image available</p>
                             @endif
