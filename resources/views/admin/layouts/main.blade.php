@@ -56,7 +56,7 @@
                 <a class="nav-link" href="{{ route('penyewaan.history') }}">History</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Users</a>
+                <a class="nav-link" href="{{{ route('viewuser.index')}}}">Users</a>
             </li>
 
             <li class="nav-item">
