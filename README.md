@@ -34,7 +34,8 @@ Admin
 
 Skema Database
 
-![Skema Database](https://github.com/user-attachments/assets/968c814b-1549-40f7-94d3-5bceee054255)
+![Skema Database](https://github.com/user-attachments/assets/beaf5208-e1e9-434e-9429-1d49a1f61584)
+
 
 
 
