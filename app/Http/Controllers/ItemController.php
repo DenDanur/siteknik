@@ -11,38 +11,22 @@ use App\Http\Requests\UpdateItemRequest;
 use Illuminate\Http\Request;
 
 
+
 class ItemController extends Controller
 {
-    private function deleteOldImage($imagePath)
-{
-    // Ensure that $imagePath does not already include 'uploads/'
-    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-        Storage::disk('public')->delete($imagePath);
-    }
-}
 
-private function handleImageUpload($image, $oldImage = null)
-{
-    try {
-        // Delete the old image if it exists
-        if ($oldImage) {
-            $this->deleteOldImage($oldImage);
+
+    protected function deleteOldImage($imagePath)
+    {
+        if (Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
         }
-
-        // Generate a unique file name
-        $imageName = time() . '_' . $image->getClientOriginalName();
-
-        // Save the new image in the 'uploads' directory under 'public'
-        $image->storeAs('uploads', $imageName, 'public');
-
-        // Return the path to the image that can be saved in the database
-        return 'uploads/' . $imageName;
-    } catch (\Exception $e) {
-        // Uncomment the line below if you want to log the error for further inspection
-        // Log::error('Image upload error: ' . $e->getMessage());
-        throw new \Exception('Gagal mengupload gambar: ' . $e->getMessage());
     }
-}
+
+    protected function handleImageUpload($image)
+    {
+        return $image->store('images', 'public'); // Menyimpan gambar di folder 'storage/app/public/images'
+    }
 
 
     public function index(Request $request)
@@ -67,6 +51,8 @@ private function handleImageUpload($image, $oldImage = null)
 
     public function store(StoreItemRequest $request)
     {
+
+
         try {
             $validatedData = $request->validated();
 
@@ -74,10 +60,12 @@ private function handleImageUpload($image, $oldImage = null)
                 $validatedData['image'] = $this->handleImageUpload($request->file('image'));
             }
 
-             Item::create($validatedData);
+            
+            Item::create($validatedData);
 
 
             return redirect()->route('items.index')->with('success', 'Item berhasil ditambahkan');
+
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
@@ -105,36 +93,33 @@ private function handleImageUpload($image, $oldImage = null)
     }
 
     public function update(UpdateItemRequest $request, Item $item)
-{
-    try {
-        $validatedData = $request->validated();
+    {
+        try {
+            $validatedData = $request->validated();
 
-        // Handle the image upload
-        if ($request->hasFile('image')) {
-            $validatedData['image'] = $this->handleImageUpload($request->file('image'), $item->image);
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $validatedData['image'] = $this->handleImageUpload($request->file('image'), $item->image);
+            }
+
+            // Update item data
+            $item->update($validatedData);
+
+            return redirect()->route('items.index')->with('success', 'Item berhasil diperbarui');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui item: ' . $e->getMessage());
         }
-
-        // Update the item
-        $item->update($validatedData);
-
-        return redirect()->route('items.index')->with('success', 'Item berhasil diperbarui');
-    } catch (\Exception $e) {
-        return redirect()->back()->withInput()->with('error', 'Gagal memperbarui item: ' . $e->getMessage());
     }
-}
-
 
     public function destroy(Item $item)
     {
         try {
-            // Hapus gambar terlebih dahulu
+            // Delete old image if it exists
             if ($item->image) {
                 $this->deleteOldImage($item->image);
             }
 
-
-
-            // Hapus item
+            // Delete item
             $item->delete();
 
             return redirect()->route('items.index')->with('success', 'Item berhasil dihapus');

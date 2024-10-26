@@ -1,62 +1,67 @@
 @extends('admin.layouts.main')
 
 @section('content')
-<div class="container">
-    <h1>Add New Item</h1>
-
-    <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="form-group">
-            <label for="item_code">Item Code</label>
-            <input type="text" name="item_code" class="form-control @error('item_code')  is-invalid @enderror" required>
-            @error('item_code')
-            <div class="alert alert-danger mt-1">
-                <span class="alert-text text-white">{{ $message }}</span>
+    <div class="container">
+        <h1>Add New Item</h1>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
             </div>
-        @enderror
-        </div>
+        @endif
 
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" class="form-control @error('name')  is-invalid @enderror" required>
-            {{-- @error('name')
-            <div class="alert alert-danger mt-1">
-                <span class="alert-text text-white">{{ $message }}</span>
+        <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="form-group">
+                <label for="item_code">Item Code</label>
+                <input type="text" name="item_code" class="form-control @error('item_code')  is-invalid @enderror" required>
+                @error('item_code')
+                    <div class="alert alert-danger mt-1">
+                        <span class="alert-text text-white">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
-        @enderror --}}
-        </div>
 
-        <div class="form-group">
-            <label for="category_id">Sub Category</label>
-            <select name="subcategory_id" class="form-control" required>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control @error('name')  is-invalid @enderror" required>
+                @error('name')
+                    <div class="alert alert-danger mt-1">
+                        <span class="alert-text text-white">{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
 
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea name="description" class="form-control" required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="category_id">Sub Category</label>
+                <select name="subcategory_id" class="form-control" required>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="stock">Stock</label>
-            <input type="number" name="stock" class="form-control" required>
-        </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" class="form-control" required></textarea>
+            </div>
 
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input type="number" name="price" class="form-control"  required>
-        </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" name="stock" class="form-control" required>
+            </div>
 
-        <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" name="image" class="form-control">
-        </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" name="price" class="form-control" required>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" name="image" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
 @endsection

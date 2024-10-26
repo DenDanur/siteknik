@@ -27,7 +27,7 @@ class StoreItemRequest extends FormRequest
             'subcategory_id' => 'required|exists:subcategories,id',
             'description' => 'required|string',
             'stock' => 'required|integer',
-            'price' => 'required|numeric',
+            'price' => 'required',
             'image' => 'nullable|image|max:2048'
         ];
     }
