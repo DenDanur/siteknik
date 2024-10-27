@@ -6,72 +6,65 @@ use App\Models\Categories;
 use App\Models\Subcategories;
 use Illuminate\Http\Request;
 
-
 class SubcategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $subcategories = Subcategories::with('category')->get();
-        return view('admin.pages.subcategory.index',compact('subcategories'));
+        return view('admin.pages.subcategory.index', compact('subcategories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Categories::all();
         return view('admin.pages.subcategory.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-
-        $validasi = $request->validate([
-            'name' => 'required|string|max:255|unique:subcategories,name,',
-            'category_id' => 'required|exists:categories,id',]);
+        try {
+            $validasi = $request->validate([
+            'name' => 'required|string|max:255|unique:subcategories,name',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        
         Subcategories::create($validasi);
-        return redirect()->route('subcategories.index');
+        return redirect()->route('subcategories.index')->with('success', 'Subcategory created successfully');
+        
+        }   catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Subcategory name already exists!')
+                ->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Subcategories $subcategories)
+    public function getByCategory($categoryId)
+{
+    $subcategories = Subcategories::where('category_id', $categoryId)->get();
+    return response()->json($subcategories);
+}
+
+    public function edit(Subcategories $subcategory)
     {
-        //
+        $categories = Categories::all();
+        return view('admin.pages.subcategory.edit', compact('subcategory', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subcategories $subcategories)
+    public function update(Request $request, Subcategories $subcategory)
     {
-        return view('admin.pages.subcategory.edit', compact('subcategories'));
+        $validasi = $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        
+        $subcategory->update($validasi);
+        return redirect()->route('subcategories.index')->with('success', 'Subcategory updated successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Subcategories $subcategories)
+    public function destroy(Subcategories $subcategory)
     {
-        $validasi = $request->validate(['name' => 'required|string|max:255','category_id' => 'required|exists:categories,id',]);
-        $subcategories->update($validasi);
-        return redirect()->route('subcategories.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Subcategories $subcategories)
-    {
-        $subcategories->delete();
-        return redirect()->route('subcategories.index');
+        $subcategory->delete();
+        return redirect()->route('subcategories.index')->with('success', 'Subcategory deleted successfully');
     }
 }

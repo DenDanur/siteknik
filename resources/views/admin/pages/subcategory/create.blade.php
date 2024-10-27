@@ -13,6 +13,19 @@
         <h1 class="mb-4">Create New Sub Category</h1>
 
         <!-- Flash message if any -->
+        @if (session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: '{{ session('error') }}',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            </script>
+        @endif
+
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

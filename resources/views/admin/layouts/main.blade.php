@@ -4,10 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>Admin Mambalabu Gunshop</title>
+    {{-- <title>@yield('title')</title> --}}
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    
+    @if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}',
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif
     <style>
         body {
             display: flex;
@@ -16,6 +28,7 @@
         }
 
         .sidebar {
+            position: fixed;
             min-width: 250px;
             background-color: #343a40;
             color: white;
@@ -27,6 +40,7 @@
         .content {
             flex-grow: 1;
             padding: 20px;
+            margin-left: 400px;
         }
 
         .sidebar a {
@@ -122,6 +136,7 @@
 
     @yield('script')
     <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

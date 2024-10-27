@@ -4,6 +4,25 @@
 <div class="container">
     <h1>Edit Item</h1>
 
+    @if (session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: '{{ session('error') }}',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            </script>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
     <form action="{{ route('items.update', $item) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

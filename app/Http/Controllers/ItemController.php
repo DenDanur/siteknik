@@ -8,6 +8,7 @@ use App\Models\Subcategories;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 
 
@@ -42,12 +43,14 @@ class ItemController extends Controller
     public function create()
     {
         try {
-            $categories = Subcategories::all();
-            return view('admin.pages.item.create', compact('categories'));
+            $categories = Categories::all();
+            $subcategories = Subcategories::with('category')->get();
+            return view('admin.pages.item.create', compact('categories','subcategories'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat form');
         }
     }
+
 
     public function store(StoreItemRequest $request)
     {
@@ -64,12 +67,13 @@ class ItemController extends Controller
             Item::create($validatedData);
 
 
-            return redirect()->route('items.index')->with('success', 'Item berhasil ditambahkan');
-
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal menambahkan item: ' . $e->getMessage());
+            return redirect()->route('items.index')->with('success', 'Item created successfully');
+                
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Item code already exists!')
+                ->withInput();
         }
     }
 

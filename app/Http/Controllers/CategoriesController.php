@@ -27,11 +27,32 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $validasi = $request->validate(['name' => 'required|string|max:255|unique:categories,name']);
+    //     Categories::create($validasi);
+    //     return redirect()->route('categories.index');
+    // }
+
     public function store(Request $request)
     {
-        $validasi = $request->validate(['name' => 'required|string|max:255|unique:categories,name']);
-        Categories::create($validasi);
-        return redirect()->route('categories.index');
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255|unique:categories,name',
+            ]);
+
+            Categories::create($validatedData);
+            
+            return redirect()
+                ->route('categories.index')
+                ->with('success', 'Category created successfully');
+                
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Category name already exists!')
+                ->withInput();
+        }
     }
 
     /**

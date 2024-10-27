@@ -12,6 +12,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Item Code</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Sub Category</th>
@@ -25,6 +26,7 @@
             <tbody>
                 @foreach ($items as $item)
                     <tr>
+                        <td>{{ $item->item_code }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->category->name }}</td>
                         <td>{{ $item->subcategory->name }}</td>

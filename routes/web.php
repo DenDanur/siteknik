@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     // Rute Home
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -57,6 +57,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('penyewaan/{penyewaan}/kembalikan' , [PenyewaanController::class, 'saveHistory'])->name('penyewaan.kembalikan');
     Route::resource('viewuser' , ViewuserController::class);
     Route::get('/viewuser/{history}/history', [ViewuserController::class, 'history'])->name('viewuser.history');
+    Route::get('/get-subcategories/{categoryId}', [SubcategoriesController::class, 'getByCategory']);
+    Route::get('/get-items/{subcategoryId}', 'ItemController@getBySubcategory');
+
 });
 
 require __DIR__.'/auth.php';
